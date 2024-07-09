@@ -1,4 +1,4 @@
-export default function Card({title, toggleVisibiliy, speed, setSpeed}){
+export default function Card({title, toggleVisibiliy, speed, setSpeed}: any){
     return (
         <div className='p-4 m-5 border-2 rounded-lg shadow-md text-black w-64'>
             <button 

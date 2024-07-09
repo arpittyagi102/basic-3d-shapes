@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 
-export default function Canvas({ isCube, isTorus, isDodecahedron, cubeSpeed, torusSpeed, dodecahedronSpeed}) {
+export default function Canvas({ isCube, isTorus, isDodecahedron, cubeSpeed, torusSpeed, dodecahedronSpeed}: any) {
     const mountRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {  
