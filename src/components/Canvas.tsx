@@ -1,10 +1,11 @@
 import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 
-export default function Canvas({ isLargeCube, isTorus, isSmallCube, largeCubeSpeed, torusSpeed, smallCubeSpeed}) {
+export default function Canvas({ isCube, isTorus, isDodecahedron, cubeSpeed, torusSpeed, dodecahedronSpeed}) {
     const mountRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {  
+        console.log({cubeSpeed, torusSpeed, dodecahedronSpeed});
         // Set up the scene, camera, and renderer
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -20,10 +21,10 @@ export default function Canvas({ isLargeCube, isTorus, isSmallCube, largeCubeSpe
         const material = new THREE.MeshStandardMaterial({ color: 0xffffff });
 
         // Creating large cube
-        const largeBoxGeometry = new THREE.BoxGeometry();
-        const largeCube = new THREE.Mesh(largeBoxGeometry, material);
-        largeCube.position.x = -2;
-        scene.add(largeCube);
+        const boxGeometry = new THREE.BoxGeometry();
+        const cube = new THREE.Mesh(boxGeometry, material);
+        cube.position.x = -2;
+        scene.add(cube);
         
         // creating torus
         const torusGeometry = new THREE.TorusGeometry( 0.5, 0.2, 10, 40 )
@@ -31,27 +32,27 @@ export default function Canvas({ isLargeCube, isTorus, isSmallCube, largeCubeSpe
         scene.add(torus);
         
         // Creating large cube
-        const smallBoxGeometry = new THREE.BoxGeometry(0.5, 0.5, 0.5);
-        const smallCube = new THREE.Mesh(smallBoxGeometry, material);
-        smallCube.position.x = 2;
-        scene.add(smallCube);
+        const dodecahedronGeometry = new THREE.DodecahedronGeometry(0.5,0);
+        const dodecahedron = new THREE.Mesh(dodecahedronGeometry, material);
+        dodecahedron.position.x = 2;
+        scene.add(dodecahedron);
     
         // Position the camera
-        camera.position.z = 5;
+        camera.position.z = 3;
     
         // Animation loop
         const animate = () => {
             requestAnimationFrame(animate);
-            largeCube.visible = isLargeCube;
+            cube.visible = isCube;
             torus.visible = isTorus;
-            smallCube.visible = isSmallCube;
+            dodecahedron.visible = isDodecahedron;
 
-            largeCube.rotation.x += 0.01;
-            largeCube.rotation.y += 0.01;
-            torus.rotation.x += 0.01;
-            torus.rotation.y += 0.01;
-            smallCube.rotation.x += 0.01;
-            smallCube.rotation.y += 0.01;
+            cube.rotation.x += parseFloat(cubeSpeed);
+            cube.rotation.y += parseFloat(cubeSpeed);
+            torus.rotation.x += parseFloat(torusSpeed);
+            torus.rotation.y += parseFloat(torusSpeed);
+            dodecahedron.rotation.x += parseFloat(dodecahedronSpeed);
+            dodecahedron.rotation.y += parseFloat(dodecahedronSpeed);
             renderer.render(scene, camera);
         };
         animate();
@@ -63,7 +64,7 @@ export default function Canvas({ isLargeCube, isTorus, isSmallCube, largeCubeSpe
             }
             renderer.dispose();
         };
-    }, [isLargeCube, isTorus, isSmallCube, largeCubeSpeed, torusSpeed, smallCubeSpeed]);
+    }, [isCube, isTorus, isDodecahedron, cubeSpeed, torusSpeed, dodecahedronSpeed]);
   
     return <div ref={mountRef} />;
 }

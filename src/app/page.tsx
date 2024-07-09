@@ -1,29 +1,34 @@
 "use client"
 import { useState } from 'react';
 import Canvas from '@/components/Canvas';
+import Card from '@/components/Card';
 
 export default function Home() {
-  const [isLargeCube, setIsLargeCube] = useState(true);
+  const [isCube, setIsCube] = useState(true);
   const [isTorus, setIsTorus] = useState(true);
-  const [isSmallCube, setIsSmallCube] = useState(true);
+  const [isDodecahedron, setIsDodecahedron] = useState(true);
 
-  const [largeCubeSpeed, setLargeCubeSpeed] = useState(0.01);
+  const [cubeSpeed, setCubeSpeed] = useState(0.01);
   const [torusSpeed, setTorusSpeed] = useState(0.01);
-  const [smallCubeSpeed, setSmallCubeSpeed] = useState(0.01);
+  const [dodecahedronSpeed, setDodecahedronSpeed] = useState(0.01);
   return (
     <div>
       <main className='bg-[#f3f4f6]'>
         <h1 className='text-black p-10 text-lg'>Welcome to Next.js with Three.js</h1>
-        <button className='bg-blue-500 text-white m-5 p-1' onClick={() => setIsLargeCube(!isLargeCube)}>Toggle Large Cube</button>
-        <button className='bg-blue-500 text-white m-5 p-1' onClick={() => setIsTorus(!isTorus)}>Toggle Torus</button>
-        <button className='bg-blue-500 text-white m-5 p-1' onClick={() => setIsSmallCube(!isSmallCube)}>Toggle Small Cube</button>
+
+        <div className='flex w-full justify-center'>
+          <Card title="box" toggleVisibiliy={setIsCube} speed={cubeSpeed} setSpeed={setCubeSpeed} />
+          <Card title="torus" toggleVisibiliy={setIsTorus} speed={torusSpeed} setSpeed={setTorusSpeed} />
+          <Card title="dodecahedron" toggleVisibiliy={setIsDodecahedron} speed={dodecahedronSpeed} setSpeed={setDodecahedronSpeed} />
+        </div>
+
         <Canvas 
-          isLargeCube={isLargeCube}
+          isCube={isCube}
           isTorus={isTorus}
-          isSmallCube={isSmallCube}
-          largeCubeSpeed={largeCubeSpeed}
+          isDodecahedron={isDodecahedron}
+          cubeSpeed={cubeSpeed}
           torusSpeed={torusSpeed}
-          smallCubeSpeed={smallCubeSpeed}
+          dodecahedronSpeed={dodecahedronSpeed}
         />
       </main>
     </div>
